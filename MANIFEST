@@ -1,0 +1,11 @@
+ABOUT/00-about
+ABOUT/99-sml-acronyme
+EXAMPLES/block1.sml
+EXAMPLES/t000-dump-items
+EXAMPLES/t001-set-attrs
+Item.pm
+MANIFEST
+Makefile.PL
+RCS/Item.pm_rev
+README
+t/00-01_use.t

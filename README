@@ -1,0 +1,85 @@
+NAME
+
+    SML::Item - parsed SML item object
+
+     $Revision: 1.3 $
+     $Date: 2004/05/23 21:38:47 $
+
+METHODS
+
+    new ( [ \@item ] )
+    get_type ( ) : string
+        Get type of item, 'E'lement, 'C'omment, 'T'ext.
+
+    is_element ( ) : bool
+        Return true if item is element.
+
+    is_comment ( ) : bool
+        Return true if item is comment.
+
+    is_text ( ) : bool
+        Return true if item is text.
+
+    is_pi ( ) : bool
+        Return true if item is pi (processing instruction), eg it has one of
+        '!', '?', '/' modifiers in tag name, see example:
+
+         <!section>
+         <?my-pi>
+         </my-tag>
+ 
+        Yes, the closing tag is also considered processing instruction,
+        however, it could be tested by is_closing_tag() method.
+
+    is_opening ( ) : bool
+        Return true if item is opening tag eg. element !pi.
+
+    is_closing ( ) : bool
+        Return true if item is closing tag eg. get_pi() eq '/'.
+
+    get_pi ( ) : string
+        Get pi (processing instruction) mark. Valid only for element type of
+        item, otherwise false (by empty string '').
+
+    get_name ( ) : string
+        Get name of element tag. Valid only for element type of item,
+        otherwise false (by empty string '').
+
+    get_text ( ) : string
+        Get text value of text or comment item type. For element type return
+        allway false (by empty string '').
+
+    get_attributes_str ( ) : string
+        Get attributes part of tag body as plain uparsed, unmodified string
+        value. Valid only for element type of item, otherwise false (by
+        empty string '').
+
+    get_attribute_value ( $name [, $position ] ) : string
+        Get value of named attribute, optionally from specified position.
+
+    get_attribute ( $name )
+        Get attribute by $name represented as arrayref of corresponding
+        values.
+
+    set_attribute_value ( $name, $value [, $pos ] )
+        Set attribute $name optionaly at specified position $pos.
+
+    get_attributes ( )
+        Get parsed attributes.
+
+    get_attributes_names ( )
+        Get list of all named attributes.
+
+    build_attributes_str ( [ $strict ] )
+        Build new attributes_str from parsed attributes info, replacing the
+        old one attributes_str.
+
+        If $strict >= 1 or any true value, drop invalid attribute body
+        entries, eg. <myTag #$ myAttr=1> --> <myTag myAttr=1>.
+
+        If $strict >= 2, build only attributes in the form of single token
+        or token with equal sign and quoted values, eg. <myTag #$ myAttr=1>
+        --> <myTag myAttr="1">
+
+TODO
+

@@ -1,0 +1,27 @@
+#!/usr/bin/perl -w
+
+	use strict;
+	use warnings;
+	use Data::Dump qw(pp);
+	use	SML::Item;
+	
+	print "START\n";
+	
+	my	$block1		= qx( cat block1.sml );
+	my	$items		= SML::Parser->parse( $block1 );	
+
+	print "PARSED\n";
+	
+	for my $item ( @$items )
+	{
+		SML::Item->new( $item );
+		
+		next unless $item->is_element;
+		$item->set_attribute_value( xattr=>1 );
+		my	$attrs	= $item->get_attributes();
+		$item->build_attributes_str( 1 );
+		next unless $attrs and %$attrs;
+		print $item->get_name, "\n", pp( $attrs ), "\n";
+	}	
+	
+	print pp( $items )
